@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    
+    <head>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Raleway&family=Roboto&display=swap" rel="stylesheet">
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>MY Movie</title>
+        <style>
+            
+            #container{
+                width:1500px;
+            }
+
+            #menu{
+                background-color: crimson;
+                float: left;
+                width: 300px;
+            }
+            #content_home, #content_search{
+                float: left;
+                width: 1100px;
+            }
+            #content_home{
+                background-color: black;
+                display: block;
+                border-left: black 10px solid;
+            }
+            #content_search{
+                background-image: linear-gradient(red 0px,black 250px);
+                min-height: 500px;
+                display: none;
+                border-left: black 10px solid;
+            }
+            #header{
+                background-image: linear-gradient(to right,black 50%,red 120%);
+            }
+            #left{
+                float: left;
+                /* border-right: 1px solid #ccc; */
+                width: 10%;
+                padding-left: 100px;
+                height: 100%;
+            }
+            #right{
+                float: left;
+                width: 80%;
+                border-left: 1px solid #ccc;
+                /* border-left: black 10px solid; */
+                /* padding-right: 10px; */
+                height: 500px; 
+                font-family: 'Raleway', sans-serif;
+            }
+            #left button{
+                display: block;
+                background-color: inherit;
+                padding: 22px 16px;
+                color: white;
+                width: 100%;
+                border: none;
+                outline: none;
+                text-align: left;
+                cursor: pointer;
+                transition: 0.3s;
+                font-size: 17px;
+                font-family: 'Roboto', sans-serif;
+            }
+            #left button:hover{
+                color: red;
+            }
+            #left button.active{
+                color: red;
+                border-bottom: 1px solid #ccc ;
+            }
+            #footer{
+                background-color: crimson;
+                width: 1100px;
+            }
+            .div_home{
+                text-align: center;
+                width: 780px;
+                padding-left: 160px;
+                padding-right: 160px;
+            }
+            .div_img{
+                width: 30%;
+                float: left;
+                overflow: scroll;
+                text-align: center;
+            }
+            .home_title{
+                text-align: center;
+            }
+            .div_cont{
+                width: 70%;
+                float: left;
+            }
+            .div_img img{
+                width: 185px;
+            }
+            .div_slide{
+                width: 100%;
+                text-align: center;
+                background-repeat: no-repeat;
+                background-size: 100%;
+                height: 440px;
+                margin-bottom: 100px;
+                position: relative;
+            }
+            .div_slide_tv{
+                width: 100%;
+                text-align: center;
+                background-repeat: no-repeat;
+                background-size: 100%;
+                height: 440px;
+                margin-bottom: 100px;
+                position: relative;
+            }
+            .mySlides_font{
+                /* padding-top: 340px; */
+                background-color: rgba(0,0,0,0.4);
+                position: absolute;
+                bottom: 0px;
+                width: 100%;
+            }
+            .mySlides_font_tv{
+                /* padding-top: 340px; */
+                background-color: rgba(0,0,0,0.4);
+                position: absolute;
+                bottom: 0px;
+                width: 100%;
+            }
+            .div_slide img{
+                vertical-align: middle;
+            }
+            .div_slide_tv img {
+                vertical-align: middle;
+            }
+            body,html{
+                width: 1500px;
+                background-color: rgb(0,0,0);
+                color: white;
+            }
+            .cast_result{
+                width: 23%;
+                height: 380px;
+                padding: 6px;
+                float: left;
+                text-align: center;
+            }
+            .cast_result img{
+                width: 75%;
+            }
+            .cast_result p{
+                margin: 0;
+            }
+            .search_result{
+                height: 325px;
+                overflow: auto;
+            }
+            form{
+                text-align: center;
+            }
+            form input{
+                border-radius: 4px;
+                margin: 10px;
+            }
+            form select{
+                border-radius: 4px;
+            }
+            form .formButton{
+                color: white;
+                background-color: black;
+                border: none;
+                border-radius: 4px;
+                font-size: 12px;
+                margin-left: 40px;
+                padding-inline: 10px;
+                padding-block: 5px;
+                font-family: 'Roboto', sans-serif;
+            }
+            form .formButton:hover{
+                background-color: red;
+            }
+            form .formButton:active{
+                background-color: red;
+            }
+            .redStarAdd:after{
+                content: '*';
+                color: red;
+                font-size: 18px;
+            }
+            
+            button{
+                color: white;
+                background-color: red;
+                border: none;
+                border-radius: 4px;
+                font-size: 12px;
+                margin-left: 40px;
+                padding-inline: 10px;
+                padding-block: 5px;
+                font-family: 'Roboto', sans-serif;
+
+            }
+            button:hover{
+                background-color: grey;
+            }
+            button:active{
+                background-color: grey;
+            }
+            .star{
+                color : red;
+            }
+            .modal {
+                display: none; /* Hidden by default */
+                position: fixed; /* Stay in place */
+                z-index: 1; /* Sit on top */
+                left: 0;
+                top: 0;
+                width: 100%; /* Full width */
+                height: 100%; /* Full height */
+                overflow: auto; /* Enable scroll if needed */
+                background-color: rgb(0,0,0); /* Fallback color */
+                background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+                font-family: 'Raleway', sans-serif;
+            }
+            .modal_cast{
+                overflow:hidden;
+            }
+            .modal_img img{
+                width:90%;
+                padding: 20px;
+            }
+            /* Modal Content/Box */
+            .modal-content {
+                background-color: #888;
+                margin: 15% auto; /* 15% from the top and centered */
+                color: black;
+                padding: 20px;
+                border: 1px solid #888;
+                width: 80%; /* Could be more or less, depending on screen size */
+            }
+            .review_usn{
+                font-weight: bolder;
+            }
+            .actor_name{
+                font-weight: bolder;
+            }
+            /* The Close Button */
+            .close {
+                color: #aaa;
+                float: right;
+                font-size: 28px;
+                font-weight: bold;
+            }
+
+            .close:hover,
+            .close:focus {
+                color: black;
+                text-decoration: none;
+                cursor: pointer;
+            }
+
+        </style>
+        
+	    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    </head>
+    <body>
+
+        <div id = "container">
+            <div id = "header">
+                <h1>
+                    THE MOVIE DB
+                </h1>
+            </div>
+            <div id = "left">
+                
+                    <button class = "tablinks" onclick="home_display(event)" id = "defaultOpen">Home  &#8594;</button>
+                    <button class = "tablinks" onclick="search_display(event)">Search  &#8594;</button>
+                
+            </div>
+            <div id = "right">
+                <div id = "content_search" >
+                    <h2 style="text-align: center;">Search</h2>
+                    <form name = "myForm", onsubmit="return false">
+                        <label class = "redStarAdd">Keyword:</label>
+                        <input type="text" name="keyword">
+                        <br>
+                        <label class = "redStarAdd">Category:</label>
+                        <select name = "category">
+                            <option value ="Empty"> </option>
+                            <option value ="Movies">Movies</option>
+                            <option value ="TV shows">TV shows</option>
+                            <option value="Movies and TV shows">Movies and TV shows</option>
+                        </select>
+                        <br><br>
+                        <input class = "formButton" type="submit" value="Submit" onclick="loadSearchResult()">
+                        <input class = "formButton" type="reset"  value="Clear">
+                    </form>
+                        <div id = "search">
+                        
+                        </div>
+                </div>
+                <div id = "content_home">
+                    <div id = "content_trend">
+
+                    </div>
+                </div>
+                <div id = 'myModal' class = "modal">
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <div id = 'modal_cont'></div>
+                    </div>
+
+                </div>
+                <div id = "footer">
+                    all rights Reserverd by ©zhihong SHEN
+                </div>
+                
+            </div>
+        </div>
+        <script>
+            var myIndex = 0;
+            var closeButton = document.getElementsByClassName("close")[0];
+            var modal = document.getElementById("myModal");
+            // var genres_ids{
+            //     28 : 'Action',
+            //     12 : "Adventure" ,
+            //     16 :"Animation",       
+            //     35 : "Comedy",          
+            //     80 : "Crime",           
+            //     99 : "Documentary",     
+            //     18 : "Drama",           
+            //     10751 :"Family",          
+            //     14 : "Fantasy",        
+            //     36 : "History",        
+            //     27 : "Horror",        
+            //     10402 : "Music",           
+            //     9648 : "Mystery",         
+            //     10749 : "Romance",         
+            //     878 : "Science Fiction", 
+            //     10770 : "TV Movie",        
+            //     53 : "Thriller",        
+            //     10 : "752War",             
+            //     37 : "Western",         
+            // }
+            closeButton.onclick = function(){
+                modal.style.display = "none";
+            }
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                modal.style.display = "none";
+                }
+            }
+            document.getElementById("defaultOpen").click();
+            loadTrendingResult();
+            loadAiringResult();
+            carousel();
+            
+            function home_display(event){
+                document.getElementById("content_search").style.display = 'none';
+                document.getElementById("content_home").style.display = 'block';
+                tablinks = document.getElementsByClassName("tablinks");
+                for (i = 0; i < tablinks.length; i++) {
+                    tablinks[i].className = tablinks[i].className.replace(" active", "");
+                }
+                event.currentTarget.className += " active";
+            }
+
+            function search_display(event){
+                document.getElementById("content_search").style.display = 'block';
+                document.getElementById("content_home").style.display = 'none';
+                tablinks = document.getElementsByClassName("tablinks");
+                for (i = 0; i < tablinks.length; i++) {
+                    tablinks[i].className = tablinks[i].className.replace(" active", "");
+                }
+                event.currentTarget.className += " active";
+            }
+            function loadTrendingResult(){
+                var xhr = new XMLHttpRequest();
+                var i;
+                xhr.onreadystatechange = function(){
+                    if(xhr.readyState == 4 && xhr.status == 200){
+                        var xr = JSON.parse(this.responseText);
+                        var result = xr.results;
+                        var output = "";
+                        output += '<div class = "home_title"><h2>Trending Movies</h2></div>';
+                        for(i = 0; i<result.length;i++){
+                            output += '<div class = "div_home">'
+                            output += '<div class = "div_slide" style = "background-image:url(\'https://image.tmdb.org/t/p/w500'+ result[i].backdrop_path + '\');">'
+                            //output += '<img src="https://image.tmdb.org/t/p/w500' + result[i].backdrop_path +'", class = "mySlides">';
+                            output += '<div class = "mySlides_font">'
+                            // output += '<p>' + result[i].release_date +'</p>';
+                            output += '<p>' + result[i].title + ' (' + result[i].release_date.substring(0,4) +')</p>';
+                            output += '</div> </div> </div>'   
+                        }
+                        
+
+                        document.getElementById("content_trend").innerHTML = output;
+
+                    }
+                }
+                xhr.open("GET","http://127.0.0.1:5000/trending",false);
+                xhr.send();
+                //document.getElementById("search").innerHTML = xhr.responseText;
+            }
+            function loadAiringResult(){
+                var xhr = new XMLHttpRequest();
+                var i;
+                xhr.onreadystatechange = function(){
+                    if(xhr.readyState == 4 && xhr.status == 200){
+                        var xr = JSON.parse(this.responseText);
+                        var result = xr.results;
+                        var output = "";
+                        output += '<div class = "home_title"><h2>TV Shows On-Air Today</h2></div>';
+                        for(i = 0; i<result.length;i++){
+                            output += '<div class = "div_home">'
+                            output += '<div class = "div_slide_tv" style = "background-image:url(\'https://image.tmdb.org/t/p/w500'+ result[i].backdrop_path + '\');">'
+                            //output += '<img src="https://image.tmdb.org/t/p/w500' + result[i].backdrop_path +'", class = "mySlides_tv">';
+                            output += '<div class = "mySlides_font_tv">'
+                            // output += '<p>' + result[i].first_air_date +'</p>';
+                            output += '<p>' + result[i].name +' (' + result[i].first_air_date.substring(0,4) + ')</p>';
+                            output += '</div> </div></div>'   
+                        }
+                        
+
+                        document.getElementById("content_trend").innerHTML += output;
+
+                    }
+                }
+                xhr.open("GET","http://127.0.0.1:5000/airing",false);
+                xhr.send();
+                //document.getElementById("search").innerHTML = xhr.responseText;
+            }
+
+
+            function carousel() {
+                var i;
+                var x = document.getElementsByClassName("div_slide");
+                var y = document.getElementsByClassName("div_slide_tv");
+                //var y = document.getElementsByClassName("mySlides_font");
+                //var z = document.getElementsByClassName("mySlides_tv");
+                //var w = document.getElementsByClassName("mySlides_font_tv");
+                for (i = 0; i < x.length; i++) {
+                    x[i].style.display = "none";
+                    y[i].style.display = "none";
+                    //z[i].style.display = "none";
+                    //w[i].style.display = "none";  
+                }
+                myIndex++;
+                if (myIndex > x.length) {myIndex = 1}    
+                x[myIndex-1].style.display = "block";
+                y[myIndex-1].style.display = "block";
+                //z[myIndex-1].style.display = "inline";
+                //w[myIndex-1].style.display = "inline";  
+                setTimeout(carousel, 2000); // Change image every 2 seconds
+            }
+
+            function loadSearchResult(){
+                var xhr = new XMLHttpRequest();
+                var keyword = document.forms["myForm"]["keyword"].value;
+                var category = document.forms["myForm"]["category"].value;
+                
+                if(keyword == null||keyword =='' ||category==null||category=='Empty'){
+                    alert("Please enter valid values.");
+                    return false;
+                }
+                if(category==='Movies and TV shows'){
+                    category = 'multi';
+                }else if(category==='TV shows'){
+                    category = 'tv';
+                }else{
+                    category = 'movie';
+                }
+                url = 'http://127.0.0.1:5000/search/' +category +'/' + keyword;
+                console.log(url);
+                xhr.onreadystatechange = function(){
+                    if(xhr.readyState == 4 && xhr.status == 200){
+                        var xr = JSON.parse(this.responseText);
+                        var result = xr.results;
+                        var output = "";
+                        output += '<p>Showing Results...</p>';
+                        for(i = 0; i<result.length;i++){
+                            output += '<div class = "search_result">';
+                            output += '<div class = "div_img">';
+                            if(result[i].poster_path==null){
+                                output += '<img src ="https://cinemaone.net/images/movie_placeholder.png">';
+                            }else{
+                                output += '<img src="https://image.tmdb.org/t/p/w500' + result[i].poster_path +'">';
+                            }
+                            output += '</div> <div class = "div_cont">';
+                            output += '<h2 style = "font-weight:bold">' + result[i].title +'</h2>';
+                            var genres = "";
+                            for(j = 0; j<result[i].genre_ids.length; j++){
+                                genres += result[i].genre_ids[j]; 
+                            }
+                            output += '<p>' + result[i].release_date.substring(0,4) + '|' + genres + '</p>';
+                            output += '<p> <span class = "star">&#9733 ' + result[i].vote_average/2 +'/5 ' + '</span> <span>' + result[i].vote_count + ' votes </p> </span> <br>';
+                            output += '<p>' + result[i].overview +'</p>';
+                            var type = category=='multi'?result[i].media_type:category;
+                            var id = result[i].id;
+                            output += '<button type = "button" onclick="showmore('+ id +',\''+ type +'\')">Show more</button>';
+                            output += '</div> </div>' ;
+                               
+                        }
+                        
+
+                        document.getElementById("search").innerHTML = output;
+
+                    }
+                }
+
+                xhr.open("GET",url,false);
+                xhr.send();
+
+            }
+            function validateForm(){
+                var keyword = document.forms["myForm"]["keyword"].value;
+                var category = document.forms["myForm"]["category"].value;
+                if(keyword == null||keyword =='' ||category==null||category=='Empty'){
+                    alert("Please enter valid values.");
+                }
+                return false;
+            }
+            function showmore(id,type){
+                url = "http://127.0.0.1:5000/detail/"+type +"/"+id;
+                var xhr = new XMLHttpRequest();
+                var output = "";
+                xhr.onreadystatechange = function(){
+                    if(xhr.readyState == 4 && xhr.status == 200){
+                        var xr = JSON.parse(this.responseText);
+                        var result = xr.results;
+                        output += "<div class = 'modal_img'>";
+                        output += '<img src="https://image.tmdb.org/t/p/w500' + result.backdrop_path +'">';
+                        output += '<div> <h1>' + result.name +'</h1>';
+                        output +=  '<p>' +  result.release_date.substring(0,4) +'|'+ result.genres[0].name + '</p>';
+                        output +=  '<p> <span class = "star">&#9733 ' + result.vote_average/2 + '/5 </span> <span>' + result.vote_count + ' votes</span> </p>';
+                        output +=  '<p>' + result.overview + '</p>';
+                        output +=  '<p>' + result.spoken_languages +'</p></div>';
+                        output += '</div>' 
+                        document.getElementById('modal_cont').innerHTML =  output;
+                    } 
+                }
+                xhr.open("GET",url,false);
+                xhr.send();
+                var xhr_c = new XMLHttpRequest();
+                url_c = "http://127.0.0.1:5000/cast/"+type +"/"+id;
+                xhr_c.onreadystatechange = function(){
+                    if(this.readyState == 4 && this.status == 200){
+                        var xr = JSON.parse(this.responseText);
+                        var result = xr.results;
+                        output += '<div class = "modal_cast"> <h2> cast </h2>';
+                        for(i = 0; i<result.length; i++){
+                            output += '<div class = "cast_result">';
+                            output += '<img src="https://image.tmdb.org/t/p/w500' + result[i].profile_path +'">';
+                            output += '<p class = "actor_name">'+ result[i].name +'</p>';
+                            output += '<p> AS </p>';
+                            output += '<p>'+ result[i].character + '</p>' + '</div>';
+                        }
+                        output += '</div>';
+                        document.getElementById('modal_cont').innerHTML =  output;
+                    }
+                }
+                xhr_c.open("GET",url_c,false);
+                xhr_c.send()
+                
+                var xhr_r = new XMLHttpRequest();
+                url_r = "http://127.0.0.1:5000/review/"+type +"/"+id;
+                xhr_r.onreadystatechange = function(){
+                    if(this.readyState == 4 && this.status == 200){
+                        var xr = JSON.parse(this.responseText);
+                        var result = xr.results;
+                        output += '<div class = "model_review"> <h2> Review </h2>'
+                        for(i = 0; i<result.length; i++){
+                            output += '<div class = "review">';
+                            output += '<p> <span class = "review_usn">' + result[i].username + '</span> <span> on ' + result[i].created_at.substring(0,10)+ '</span></p>';
+                            output += '<p><span class ="star">&#9733 ' +result[i].rating/2 + '/5</span></p>';
+                            output += '<p>' +result[i].content  +'</p></div>';
+                        }
+                        document.getElementById('modal_cont').innerHTML =  output;
+                        output += '</div>'
+                    }
+                }
+                xhr_r.open("GET",url_r,false);
+                xhr_r.send();
+
+                modal.style.display = "block";
+                
+            }
+        </script>
+    </body>
+</html>
